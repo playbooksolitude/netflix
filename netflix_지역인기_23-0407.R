@@ -14,7 +14,7 @@ showtext_auto()
   #영문 -> 한글 변환
 (read_csv("./files/netflix_rank1_nametable.csv",
          skip = 1) |> select(2,3,4) -> netflix_nametable)
-netflix_nametable |> view()
+#netflix_nametable |> view()
 
   #한국만 데이터셋 분리
 (netflix1 |> filter(
@@ -29,7 +29,6 @@ netflix2_kor_tv #920개 TV프로그램
   #날짜 #2021-07-04 ~ #2023-04-02
 table(netflix2_kor_tv$week) 
 #table(netflix_0331$country_name)  #South Korea
-
 
 ###check
   #Films 920 #TV 920
@@ -93,7 +92,7 @@ netflix4_TV_name |>
   labs(title = "NETFLIX 한국 1위 TV 부문",
        subtitle = "2021.07.04 ~ 2023.04.02",
        y = "show_title") + 
-#  bbc_style() +
+  bbc_style() +
   scale_color_manual(values = color) +
   geom_line(show.legend = F)                                   #group = 1
 
@@ -103,13 +102,42 @@ netflix4_TV_name |>
              y = kor_name |> fct_reorder(week),
              color = original)) + #날짜가 x축일 때 y 축 정렬
   geom_point(stat = "identity", show.legend = F) +
-  labs(title = "NETFLIX 한국 1위 TV 부문",
+  labs(title = "NETFLIX TV 부문 한국 1위",
        subtitle = "2021.07.04 ~ 2023.04.02",
        y = "show_title") + 
 #  bbc_style() +
   facet_wrap(.~year, nrow = 2) +
   scale_color_manual(values = color) +
   geom_line(show.legend = F)                                   #group = 1
+
+#2022
+netflix4_TV_name |> filter(year == "2022") |> 
+  ggplot(aes(week, 
+             y = kor_name |> fct_reorder(week),
+             color = original)) + #날짜가 x축일 때 y 축 정렬
+  geom_point(stat = "identity", show.legend = F, size = 3) +
+  labs(title = "NETFLIX TV 부문 한국 1위",
+       subtitle = "2022년 1월 ~ 12월",
+       y = "show_title") + 
+  bbc_style() +
+  facet_wrap(.~year, nrow = 2) +
+  scale_color_manual(values = color) +
+  geom_line(show.legend = F)  
+
+#2023
+netflix4_TV_name |> filter(year == "2023") |> 
+  ggplot(aes(week, 
+             y = kor_name |> fct_reorder(week),
+             color = original)) + #날짜가 x축일 때 y 축 정렬
+  geom_point(stat = "identity", show.legend = F, size = 3) +
+  labs(title = "NETFLIX TV 부문 한국 1위",
+       subtitle = "2022년 1월 ~ 12월",
+       y = "show_title") + 
+  bbc_style() +
+  facet_wrap(.~year, nrow = 2) +
+  scale_color_manual(values = color) +
+  geom_line(show.legend = F)  
+
 
 
 ######### show_title()
@@ -118,7 +146,6 @@ netflix4_TV_name |>
     mutate(
       count = n()
     ) -> netflix5_n)
-
 
     #ggplot 최다 1위 정렬
 ggplot(data = netflix5_n, 
@@ -132,7 +159,24 @@ ggplot(data = netflix5_n,
   geom_label(aes(label = stat(count)), stat = "count", size = 5) +
   scale_y_continuous(breaks = seq(1,10,1))   # y축 값이 1씩 나오도록 
 
+#original vs normal #전체
+netflix4_TV_name |> 
+  ggplot(aes(x = original)) +
+  geom_bar(stat = "count", aes(fill = original), show.legend = F) +
+  scale_fill_manual(values = color) +
+  geom_label(aes(label = stat(count)), stat = "count", size = 10) +
+  labs(title = "NETFLIX 한국 1위 TV 오리지널 콘텐츠 건수",
+       subtitle = "2021.07.04 ~ 2023.04.02")
+
+#면분할
+netflix4_TV_name |> 
+  ggplot(aes(x = original)) +
+  geom_bar(stat = "count", aes(fill = original), show.legend = F) +
+  scale_fill_manual(values = color) +
+  geom_label(aes(label = stat(count)), stat = "count", size = 10) +
+  facet_wrap(.~year) +
+  bbc_style()
 
 
-netflix_0331_kor |> filter(show_title %in% c("Physical: 100")) |> 
+netflix2_kor_tv |> filter(show_title %in% c("Physical: 100")) |> 
   ggplot(aes(x = weekly_rank |> as.factor())) + geom_bar(stat = "count")
