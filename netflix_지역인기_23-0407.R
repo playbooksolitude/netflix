@@ -139,7 +139,6 @@ netflix4_TV_name |> filter(year == "2023") |>
   scale_color_manual(values = color) +
   geom_line(show.legend = F)  
 
-
 ######### show_title()
 ### netflix_5_n # 1위 점유주
 (netflix4_TV_name |> group_by(show_title) |> 
