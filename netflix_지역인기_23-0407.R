@@ -89,7 +89,7 @@ netflix4_TV_name |>
   ggplot(aes(week, 
              y = kor_name |> fct_reorder(week),
              color = original)) + #날짜가 x축일 때 y 축 정렬
-  geom_point(stat = "identity", show.legend = F) +
+  geom_point(stat = "identity", show.legend = F, size = 2) +
   labs(title = "NETFLIX 한국 1위 TV 부문",
        subtitle = "2021.07.04 ~ 2023.04.02",
        y = "show_title") + 
@@ -155,7 +155,7 @@ ggplot(data = netflix5_n,
   scale_fill_manual(values = color) +
   coord_flip() +
   labs(x = "title") +
-#  bbc_style() +
+  bbc_style() +
   geom_label(aes(label = stat(count)), stat = "count", size = 5) +
   scale_y_continuous(breaks = seq(1,10,1))   # y축 값이 1씩 나오도록 
 
@@ -166,7 +166,8 @@ netflix4_TV_name |>
   scale_fill_manual(values = color) +
   geom_label(aes(label = stat(count)), stat = "count", size = 10) +
   labs(title = "NETFLIX 한국 1위 TV 오리지널 콘텐츠 건수",
-       subtitle = "2021.07.04 ~ 2023.04.02")
+       subtitle = "2021.07.04 ~ 2023.04.02") +
+  bbc_style()
 
 #면분할
 netflix4_TV_name |> 
@@ -180,3 +181,20 @@ netflix4_TV_name |>
   # 피지컬: 100
 netflix2_kor_tv |> filter(show_title %in% c("Physical: 100")) |> 
   ggplot(aes(x = weekly_rank |> as.factor())) + geom_bar(stat = "count")
+
+
+#
+(netflix2_kor_tv |> 
+    mutate(
+      year = year(week),
+      month = month(week),
+      day = day(week)
+    ) |> 
+    filter(weekly_rank %in% c("1", "2", "3")) -> netflix3_tv_rank123)
+
+netflix3_tv_rank123
+(left_join(netflix3_tv_rank123,
+           netflix_nametable3,
+           by = c("show_title" = "eng_name")) -> netflix4_TV_name123)
+
+
