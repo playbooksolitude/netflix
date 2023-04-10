@@ -1,14 +1,17 @@
 #23-0331 fri 16:49
 
 #
+#install.packages('devtools')
+#devtools::install_github('bbc/bbplot')
+
 library(tidyverse)
 library(lubridate)
 library(bbplot)
 library(showtext)
 showtext_auto()
 
-
 #불러오기
+  #netflix data
 (read_tsv("~/Documents/netflix/files/all-weeks-countries_23-0407.tsv") -> netflix1)
 
   #영문 -> 한글 변환
@@ -26,15 +29,14 @@ showtext_auto()
   filter(category %in% c("TV")) -> netflix2_kor_tv)
 netflix2_kor_tv #920개 TV프로그램
 
-  #날짜 #2021-07-04 ~ #2023-04-02
-table(netflix2_kor_tv$week) 
-#table(netflix_0331$country_name)  #South Korea
+###날짜 #2021-07-04 ~ #2023-04-02
+  #table(netflix2_kor_tv$week) 
+  #table(netflix_0331$country_name)  #South Korea
 
 ###check
   #Films 920 #TV 920
-table(netflix2_kor$category)
-netflix2_kor |> group_by(week) |> summarise(n = n())
-netflix2_kor |> filter(week == "2023-04-02")
+  # netflix2_kor |> group_by(week) |> summarise(n = n())
+  # netflix2_kor |> filter(week == "2023-04-02")
 
 ###dataset 
   #rank 1등만  #tv
@@ -49,7 +51,6 @@ netflix2_kor |> filter(week == "2023-04-02")
 ##### mapping table
   ### netflix_nametable3                                      ### 한국 이름                          
 colnames(netflix_nametable) <- c("kor_name", "eng_name", "original")
-#netflix_nametable |> print(n = Inf)
 
     #tidyr separate
 (netflix_nametable |> 
@@ -177,6 +178,6 @@ netflix4_TV_name |>
   facet_wrap(.~year) +
   bbc_style()
 
-
+  # 피지컬: 100
 netflix2_kor_tv |> filter(show_title %in% c("Physical: 100")) |> 
   ggplot(aes(x = weekly_rank |> as.factor())) + geom_bar(stat = "count")
