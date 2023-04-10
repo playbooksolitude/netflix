@@ -180,3 +180,7 @@ netflix4_TV_name |>
   # 피지컬: 100
 netflix2_kor_tv |> filter(show_title %in% c("Physical: 100")) |> 
   ggplot(aes(x = weekly_rank |> as.factor())) + geom_bar(stat = "count")
+
+
+
+
