@@ -146,6 +146,7 @@ netflix4_TV_name |> filter(year == "2023") |>
       count = n()
     ) -> netflix5_n)
 
+
     #ggplot 최다 1위 정렬
 ggplot(data = netflix5_n, 
        aes(x = kor_name |> fct_infreq() |> fct_rev(),
