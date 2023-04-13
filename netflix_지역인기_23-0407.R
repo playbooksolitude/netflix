@@ -182,9 +182,6 @@ netflix4_TV_name |>
 netflix2_kor_tv |> filter(show_title %in% c("Physical: 100")) |> 
   ggplot(aes(x = weekly_rank |> as.factor())) + geom_bar(stat = "count")
 
-
-<<<<<<< HEAD
-=======
 #
 (netflix2_kor_tv |> 
     mutate(
@@ -198,6 +195,6 @@ netflix3_tv_rank123
 (left_join(netflix3_tv_rank123,
            netflix_nametable3,
            by = c("show_title" = "eng_name")) -> netflix4_TV_name123)
->>>>>>> 8379e31e05021c3dbce6f161bb938218c4fe5065
+
 
 
