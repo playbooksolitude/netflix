@@ -2,6 +2,11 @@
 
 #
 getwd()
+library(tidyverse)
+library(showtext)
+showtext_auto()
+library(bbplot)
+
 
 read_tsv("./files/most-popular_23-0410.tsv") -> nf_popular1
 
@@ -14,6 +19,7 @@ nf_popular1 |> group_by(show_title, season_title) |>
 #ggplot
 color2 = c("일반" = "black", 
            "대한민국 작품" = "red")
+
 nf_popular1 |> group_by(season_title) |> 
   summarise(sum = sum(hours_viewed_first_28_days)) |> 
   arrange(desc(sum)) |> filter(season_title != "N/A") |> 
