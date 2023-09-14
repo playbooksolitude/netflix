@@ -23,7 +23,8 @@ netflix_rank28_nametable |> group_by(kor_name) |>
   arrange(desc(sum)) |> 
   mutate(original = ifelse(kor_name %in% c("오징어 게임",
                                                "더 글로리",
-                                      "이상한 변호사 우영우"),
+                                      "이상한 변호사 우영우",
+                                      "지금 우리 학교는"),
                   "대한민국 작품", 
                   "일반"),
          rank = row_number(desc(sum))) -> netflix_rank28_nametable2
@@ -92,7 +93,8 @@ netflix_rank28_nametable |> group_by(kor_name) |>
   mutate(original = ifelse(kor_name %in% 
                              c("오징어 게임",
                                "더 글로리",
-                               "이상한 변호사 우영우"),
+                               "이상한 변호사 우영우",
+                               "지금 우리 학교는"),
                            "대한민국 작품", 
                            "일반"),
          rank = row_number(desc(sum))) |> 
@@ -113,15 +115,15 @@ netflix_rank28_nametable |> group_by(kor_name) |>
 
 #
 # ----------------------------------------------------------
-arr_1csv |> 
-  count(항공사, 출발공항명, 구분, sort = T) |> 
-  filter(n > 90) |> 
-  mutate(num = row_number(), .before = 1) -> temp_d
-temp_d -> temp_l
-
-angle2 <- 90-(360*(temp_l$num-.5)/nrow(temp_d))
-temp_l$hjust <- ifelse(angle2 < -90, 1, 0)
-temp_l$angle2 <- ifelse(angle2 < -90, angle2 + 180, angle2)
+# arr_1csv |> 
+#   count(항공사, 출발공항명, 구분, sort = T) |> 
+#   filter(n > 90) |> 
+#   mutate(num = row_number(), .before = 1) -> temp_d
+# temp_d -> temp_l
+# 
+# angle2 <- 90-(360*(temp_l$num-.5)/nrow(temp_d))
+# temp_l$hjust <- ifelse(angle2 < -90, 1, 0)
+# temp_l$angle2 <- ifelse(angle2 < -90, angle2 + 180, angle2)
 
 
 #
