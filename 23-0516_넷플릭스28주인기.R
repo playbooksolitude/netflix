@@ -150,12 +150,13 @@ ggplot(temp_d,
   theme(legend.position = "top") +
   ylim(-200, 2000) +
   geom_text(data = temp_l,
-            aes(x = num, y = sum2+1,
+            aes(x = num, y = sum2+2,
                 label = kor_name,
                 hjust = hjust),
             color = "black", size = 4,
             angle = temp_l$angle2, inherit.aes = F) +
-  labs(title = "넷플릭스 역대 기록") +
+  labs(title = "넷플릭스 공개 후 역대 기록
+       ") +
   scale_fill_manual(values = color2)
   
   #scale_fill_nord("afternoon_prarie") +
